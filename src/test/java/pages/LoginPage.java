@@ -2,12 +2,12 @@ package pages;
 
 import com.microsoft.playwright.Page;
 
-public class LoginPage {
+public class LoginPage extends BaseTest{
     private Page page;
 
-    private String username = "input[name='username']";
-    private String password = "input[name='password']";
-    private String loginBtn = "input[value='Log In']";
+    private String username = "//input[@name='username']";
+    private String password = "//input[@name='password']";
+    private String loginBtn = "//input[@value='Log In']";
 
     public LoginPage(Page page) {
         this.page = page;

@@ -1,46 +1,52 @@
 package stepDefinitions;
 
-import com.microsoft.playwright.*;
-import io.cucumber.java.en.*;
-import pages.*;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import pages.BaseTest;
+import pages.DashboardPage;
+import pages.LoginPage;
+import pages.SignupPage;
+import utils.DataGenerator;
 
 public class AccountSteps {
-    Playwright playwright;
-    Browser browser;
-    Page page;
+
     SignupPage signupPage;
     LoginPage loginPage;
     DashboardPage dashboardPage;
-    String username = "testuser" + System.currentTimeMillis();
-    String password = "Password123";
+
+    String username = DataGenerator.generateUsername();
+    String password = DataGenerator.generatePassword();
 
     @Given("the user is on the signup page")
     public void user_on_signup_page() {
-        playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-        page = browser.newPage();
-        signupPage = new SignupPage(page);
+        signupPage = new SignupPage(BaseTest.page);
         signupPage.navigate();
     }
 
     @When("the user registers with valid details")
     public void user_registers() {
+        System.out.println("Registering: " + username + " / " + password);
         signupPage.register("John", "Doe", username, password);
+
+
+         signupPage.logOut();
     }
 
     @When("logs in with the same credentials")
     public void logs_in() {
-        loginPage = new LoginPage(page);
+        loginPage = new LoginPage(BaseTest.page); // fixed page reference
         loginPage.navigate();
+        System.out.println("Logging in: " + username + " / " + password);
         loginPage.login(username, password);
     }
 
     @Then("the user should see the account balance displayed")
     public void verify_balance() {
-        dashboardPage = new DashboardPage(page);
+        dashboardPage = new DashboardPage(BaseTest.page);
         String balance = dashboardPage.getBalance();
         System.out.println("Account Balance: " + balance);
-        browser.close();
-        playwright.close();
+
+        BaseTest.takeScreenshot("balance.png");
     }
 }
