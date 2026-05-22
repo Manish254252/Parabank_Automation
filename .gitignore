@@ -4,3 +4,10 @@ videos/
 proofs/
 cucumber-report.html
 *.log
+
+target/
+*.class
+src/test/
+
+_rebuild-staging/
+rebuild-history.ps1
