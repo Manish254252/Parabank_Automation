@@ -4,11 +4,13 @@
   "description": "Parabank account flow automation with Playwright and Cucumber (TypeScript)",
   "scripts": {
     "test": "cucumber-js",
-    "test:headed": "cucumber-js"
+    "test:headed": "cucumber-js",
+    "docs:excel": "ts-node scripts/generate-test-case-excel.ts"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
     "@types/node": "^22.10.0",
+    "exceljs": "^4.4.0",
     "@playwright/test": "^1.47.0",
     "playwright": "^1.47.0",
     "ts-node": "^10.9.2",
