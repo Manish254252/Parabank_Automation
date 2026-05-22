@@ -1,4 +1,5 @@
 import { Page } from 'playwright';
+import { loadSignupTestData } from '../utils/test-data-loader';
 
 export class SignupPage {
   private readonly firstName = "input[name='customer.firstName']";
@@ -26,14 +27,16 @@ export class SignupPage {
   }
 
   async register(user: string, pass: string): Promise<void> {
-    await this.page.fill(this.firstName, 'John');
-    await this.page.fill(this.lastName, 'Doe');
-    await this.page.fill(this.address, '221B Baker Street');
-    await this.page.fill(this.city, 'Springfield');
-    await this.page.fill(this.state, 'California');
-    await this.page.fill(this.zipCode, '90210');
-    await this.page.fill(this.phone, '5551234567');
-    await this.page.fill(this.ssn, '123-45-6789');
+    const data = loadSignupTestData();
+
+    await this.page.fill(this.firstName, data.firstName);
+    await this.page.fill(this.lastName, data.lastName);
+    await this.page.fill(this.address, data.address);
+    await this.page.fill(this.city, data.city);
+    await this.page.fill(this.state, data.state);
+    await this.page.fill(this.zipCode, data.zipCode);
+    await this.page.fill(this.phone, data.phone);
+    await this.page.fill(this.ssn, data.ssn);
     await this.page.fill(this.username, user);
     await this.page.fill(this.password, pass);
     await this.page.fill(this.confirmPassword, pass);

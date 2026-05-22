@@ -1,0 +1,12 @@
+{
+  "registration": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "address": "221B Baker Street",
+    "city": "Springfield",
+    "state": "California",
+    "zipCode": "90210",
+    "phone": "5551234567",
+    "ssn": "123-45-6789"
+  }
+}
